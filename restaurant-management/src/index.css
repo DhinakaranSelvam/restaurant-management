@@ -1,0 +1,142 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Poppins:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+/* Custom Component Classes */
+@layer components {
+  /* Button Styles */
+  .btn-primary {
+    @apply bg-spice-forest text-white px-6 py-3 rounded-xl font-bold text-xs uppercase tracking-widest hover:bg-spice-clay transition-all active:scale-95;
+  }
+
+  .btn-secondary {
+    @apply bg-spice-saffron text-white px-6 py-3 rounded-xl font-bold text-xs uppercase tracking-widest hover:bg-spice-clay hover:shadow-xl transition-all active:scale-95;
+  }
+
+  .btn-ghost {
+    @apply bg-gray-100 text-gray-500 px-6 py-3 rounded-xl font-bold text-xs uppercase tracking-widest hover:bg-gray-200 transition-all active:scale-95;
+  }
+
+  .btn-icon {
+    @apply w-10 h-10 flex items-center justify-center rounded-full transition-all cursor-pointer;
+  }
+
+  .btn-delete {
+    @apply w-8 h-8 flex items-center justify-center rounded-full bg-red-50 text-red-500 hover:bg-red-500 hover:text-white transition-all duration-300;
+  }
+
+  /* Input Styles */
+  .input-field {
+    @apply w-full px-5 py-4 rounded-xl border border-gray-100 bg-gray-50/50 focus:bg-white focus:border-spice-saffron focus:ring-4 focus:ring-spice-saffron/10 transition-all outline-none text-gray-700 font-medium;
+  }
+
+  .textarea-field {
+    @apply w-full px-5 py-4 rounded-2xl border border-gray-100 bg-gray-50/50 focus:bg-white focus:border-spice-saffron focus:ring-4 focus:ring-spice-saffron/10 transition-all outline-none text-gray-700 font-medium min-h-[120px] resize-none;
+  }
+
+  .input-label {
+    @apply text-xs font-bold uppercase tracking-widest text-gray-400 ml-1;
+  }
+
+  /* Card Styles */
+  .card-primary {
+    @apply bg-white p-10 rounded-[3rem] shadow-spice border border-orange-50;
+  }
+
+  .card-hover {
+    @apply bg-white rounded-3xl shadow-spice hover:shadow-2xl transition-all duration-500 border border-orange-50/50;
+  }
+
+  .card-glass {
+    @apply bg-white/80 backdrop-blur-md border border-orange-100 shadow-sm;
+  }
+
+  /* Badge Styles */
+  .badge-primary {
+    @apply text-[10px] font-black uppercase tracking-widest text-spice-saffron bg-spice-saffron/10 px-3 py-1 rounded-full;
+  }
+
+  .badge-price {
+    @apply text-xs font-black bg-emerald-50 text-emerald-700 px-2 py-1 rounded-md border border-emerald-100;
+  }
+
+  .badge-price-white {
+    @apply bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full shadow-sm;
+  }
+
+  /* Typography */
+  .heading-primary {
+    @apply font-display text-5xl font-extrabold text-spice-forest tracking-tight;
+  }
+
+  .heading-secondary {
+    @apply font-display text-3xl font-black text-spice-forest tracking-tight;
+  }
+
+  .heading-tertiary {
+    @apply font-display text-2xl font-bold text-spice-forest;
+  }
+
+  .text-muted {
+    @apply text-gray-500 font-medium;
+  }
+
+  .text-small-caps {
+    @apply text-[10px] font-black uppercase tracking-[0.2em] text-gray-400;
+  }
+
+  /* Navigation Link */
+  .nav-link {
+    @apply cursor-pointer text-sm font-bold uppercase tracking-wider text-gray-600 hover:text-spice-saffron transition-all relative;
+  }
+
+  .nav-link-underline {
+    @apply absolute bottom-[-4px] left-0 w-0 h-[2px] bg-spice-saffron transition-all group-hover:w-full;
+  }
+
+  /* Popup/Modal */
+  .modal-overlay {
+    @apply fixed inset-0 bg-spice-forest/20 backdrop-blur-xl flex items-center justify-center p-4 z-50 transition-all duration-500;
+  }
+
+  .modal-content {
+    @apply bg-white p-10 rounded-[3rem] shadow-2xl max-w-lg w-full relative border border-orange-50;
+  }
+
+  .modal-close {
+    @apply absolute top-6 right-6 text-gray-300 hover:text-spice-saffron transition-colors text-3xl;
+  }
+
+  /* Section Layout */
+  .section-header {
+    @apply text-center space-y-4;
+  }
+
+  .section-divider {
+    @apply w-24 h-1 bg-spice-saffron rounded-full;
+  }
+
+  /* List Items */
+  .list-item-hover {
+    @apply p-6 bg-gray-50/50 hover:bg-white rounded-2xl border border-transparent hover:border-orange-100 transition-all;
+  }
+
+  /* Star Rating */
+  .star-icon {
+    @apply text-lg transition-all duration-300 cursor-pointer hover:scale-125;
+  }
+}
