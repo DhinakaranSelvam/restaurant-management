@@ -1,0 +1,5 @@
+backend/node_modules/
+backend/.env
+restaurant-management/node_modules/
+.DS_Store
+.env
