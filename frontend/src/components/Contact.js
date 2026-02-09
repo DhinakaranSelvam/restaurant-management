@@ -56,8 +56,8 @@ const Contact = ({
                 <h4 className="font-display text-xl font-bold text-spice-forest">Visit Us</h4>
                 <p className="text-muted text-sm leading-relaxed">
                   123 Spice Garden,<br />
-                  Traditional Street, Chennai,<br />
-                  Tamil Nadu 600001
+                  outer ring road, Hosur,<br />
+                  Tamil Nadu 635109
                 </p>
               </div>
               <div className="space-y-2">

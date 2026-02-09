@@ -18,6 +18,7 @@ export default function App() {
   /* ---------- AUTH ---------- */
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [user, setUser] = useState(null);
   const [page, setPage] = useState("login");
 
   /* ---------- DATA ---------- */
@@ -62,6 +63,7 @@ export default function App() {
       const data = await api.login(email, password);
       localStorage.setItem("token", data.token);
       setIsAdmin(data.user.role === "admin");
+      setUser(data.user); // Store user information
       setIsLoggedIn(true);
       setPage("home");
     } catch (error) {
@@ -83,6 +85,7 @@ export default function App() {
     localStorage.removeItem("token");
     setIsLoggedIn(false);
     setIsAdmin(false);
+    setUser(null);
     setPage("login");
   };
 
@@ -113,6 +116,15 @@ export default function App() {
     }
   };
 
+  const handleAddDish = async (dishData) => {
+    try {
+      const newDish = await api.createDish(dishData);
+      setDishes([...dishes, { ...newDish, desc: newDish.description, img: newDish.image_url }]);
+    } catch (error) {
+      console.error("Error adding dish:", error);
+    }
+  };
+
   const handleDeleteDish = async (id) => {
     try {
       await api.deleteDish(id);
@@ -126,10 +138,13 @@ export default function App() {
     if (newOffer.trim()) {
       try {
         const addedOffer = await api.createOffer(newOffer);
-        setOffers([...offers, addedOffer]);
+        // Use functional update to ensure we're using the latest state
+        setOffers(prevOffers => [...prevOffers, addedOffer]);
         setNewOffer("");
       } catch (error) {
         console.error("Error adding offer:", error);
+        // Show error to user
+        alert("Failed to add offer: " + (error.response?.data?.message || error.message));
       }
     }
   };
@@ -166,6 +181,7 @@ export default function App() {
       <Header
         isLoggedIn={isLoggedIn}
         isAdmin={isAdmin}
+        user={user}
         setPage={setPage}
         logout={logout}
       />
@@ -201,6 +217,7 @@ export default function App() {
             newOffer={newOffer}
             setNewOffer={setNewOffer}
             dishes={dishes}
+            handleAddDish={handleAddDish}
             handleDeleteDish={handleDeleteDish}
             setEditId={setEditId}
             setEditDish={setEditDish}

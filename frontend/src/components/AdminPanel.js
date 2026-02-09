@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { PageHeader, Card, Badge, Button } from "./ui";
 
 const AdminPanel = ({
@@ -8,10 +8,27 @@ const AdminPanel = ({
   newOffer,
   setNewOffer,
   dishes,
+  handleAddDish,
   handleDeleteDish,
   setEditId,
   setEditDish,
 }) => {
+  const [showAddDishModal, setShowAddDishModal] = useState(false);
+  const [newDish, setNewDish] = useState({ name: "", price: "", desc: "", img: "" });
+
+  const handleAddNewDish = async () => {
+    if (newDish.name && newDish.price) {
+      await handleAddDish({
+        name: newDish.name,
+        price: newDish.price,
+        description: newDish.desc,
+        image_url: newDish.img
+      });
+      setNewDish({ name: "", price: "", desc: "", img: "" });
+      setShowAddDishModal(false);
+    }
+  };
+
   return (
     <div className="space-y-16">
       <PageHeader 
@@ -64,7 +81,10 @@ const AdminPanel = ({
         <Card className="space-y-8 overflow-hidden">
           <div className="flex items-center justify-between">
             <h3 className="heading-tertiary">Dish Manager</h3>
-            <button className="text-xs font-black uppercase tracking-widest text-spice-saffron hover:underline">
+            <button 
+              className="text-xs font-black uppercase tracking-widest text-spice-saffron hover:underline"
+              onClick={() => setShowAddDishModal(true)}
+            >
               Add New Dish +
             </button>
           </div>
@@ -109,6 +129,74 @@ const AdminPanel = ({
           </div>
         </Card>
       </div>
+
+      {/* Add Dish Modal */}
+      {showAddDishModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-2xl p-8 max-w-md w-full mx-4">
+            <h3 className="text-xl font-bold mb-6 text-center">Add New Dish</h3>
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Dish Name</label>
+                <input
+                  type="text"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring focus:ring-spice-saffron focus:outline-none"
+                  value={newDish.name}
+                  onChange={(e) => setNewDish({...newDish, name: e.target.value})}
+                  placeholder="Enter dish name"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Price</label>
+                <input
+                  type="text"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring focus:ring-spice-saffron focus:outline-none"
+                  value={newDish.price}
+                  onChange={(e) => setNewDish({...newDish, price: e.target.value})}
+                  placeholder="Enter price (e.g., ₹120)"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
+                <textarea
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring focus:ring-spice-saffron focus:outline-none"
+                  value={newDish.desc}
+                  onChange={(e) => setNewDish({...newDish, desc: e.target.value})}
+                  placeholder="Enter dish description"
+                  rows="3"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Image URL (optional)</label>
+                <input
+                  type="text"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring focus:ring-spice-saffron focus:outline-none"
+                  value={newDish.img}
+                  onChange={(e) => setNewDish({...newDish, img: e.target.value})}
+                  placeholder="Enter image URL"
+                />
+              </div>
+            </div>
+            <div className="flex justify-end space-x-3 mt-6">
+              <button
+                className="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-100"
+                onClick={() => {
+                  setShowAddDishModal(false);
+                  setNewDish({ name: "", price: "", desc: "", img: "" });
+                }}
+              >
+                Cancel
+              </button>
+              <button
+                className="px-4 py-2 bg-spice-saffron text-white rounded-lg hover:bg-yellow-500"
+                onClick={handleAddNewDish}
+              >
+                Add Dish
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
